@@ -44,4 +44,28 @@ public class LoginController {
         EmpLoginLogHolder.setIEmpLoginLog(empLoginLog);*/
         return Result.error("用户名或密码错误");
     }
+
+    /**
+     * 登录
+     */
+    @PostMapping
+    public Result login2(@RequestBody Emp emp) {
+        log.info("登录：{}", emp);
+
+        /*EmpLoginLog empLoginLog = new EmpLoginLog();
+        empLoginLog.setUsername(emp.getUsername());
+        empLoginLog.setPassword(emp.getPassword());*/
+
+        LoginInfo info = empService.login(emp);
+        if (info != null) {
+            /*empLoginLog.setIsSuccess((short) 1);
+            empLoginLog.setJwt(info.getToken());
+            EmpLoginLogHolder.setIEmpLoginLog(empLoginLog);*/
+            return Result.success(info);
+        }
+
+        /*empLoginLog.setIsSuccess((short) 0);
+        EmpLoginLogHolder.setIEmpLoginLog(empLoginLog);*/
+        return Result.error("用户名或密码错误");
+    }
 }
